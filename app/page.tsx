@@ -6,6 +6,7 @@ import StartingPopup from "./components/popup/StartingPopup";
 import useScrapedProductManagement from "./helpers/useScrapedProductManagement";
 import Search from "./components/forms/Search";
 import Pagination from "./components/features/Pagination";
+import CarouselSlider from "./components/carousel/CarouselSlider";
 
 const HomePage = () => {
   const {
@@ -57,6 +58,7 @@ const HomePage = () => {
         <>
           {scrapedProducts.length > 0 ? (
             <>
+              <CarouselSlider />
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}

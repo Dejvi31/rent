@@ -15,7 +15,8 @@
     "next-auth": "^4.24.5",
     "puppeteer": "^22.3.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-responsive-carousel": "^3.2.23"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",

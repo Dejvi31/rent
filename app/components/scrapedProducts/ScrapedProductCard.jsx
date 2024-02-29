@@ -17,7 +17,7 @@ const ScrapedProductCard = ({
   return (
     <section className="relative">
       <button
-        className="absolute z-50 top-2 right-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 rounded-full"
+        className="absolute z-1 top-2 right-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-2 rounded-full"
         onClick={() => {
           onSelect(scrapedProduct.id);
         }}
