@@ -8,12 +8,19 @@ export const fetchScrapedProducts = async () => {
     }
     const data = await response.json();
     if (data && data.productsArray) {
-      const scrapedProductsArray = data.productsArray.map((productObject) => ({
-        id: productObject.id,
-        name: productObject.name,
-        image: productObject.image,
-        properties: productObject.properties,
-      }));
+      const scrapedProductsArray = data.productsArray.map((productObject) => {
+        const { id, name, image, carProperties, priceTotal, priceDay } =
+          productObject;
+
+        return {
+          id,
+          name,
+          image,
+          properties: carProperties,
+          priceTotal,
+          priceDay,
+        };
+      });
 
       return scrapedProductsArray;
     } else {

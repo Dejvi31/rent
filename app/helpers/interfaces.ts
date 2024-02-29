@@ -4,6 +4,8 @@ export interface ScrapedProduct {
   name: string;
   image: string;
   properties: Record<string, string>;
+  priceTotal: string;
+  priceDay: string;
 }
 
 export interface UseScrapedProductManagementReturn {

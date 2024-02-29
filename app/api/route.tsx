@@ -1,65 +1,143 @@
-import { JSDOM } from "jsdom";
+// import { JSDOM } from "jsdom";
 
-interface PhoneProperties {
-  [key: string]: string;
-}
+// export const dynamic = "force-dynamic";
+
+// // Function to scrape data from a specific page
+// async function scrapePage(
+//   pageUrl: string,
+//   startProductId: number
+// ): Promise<{ productsArray?: any[]; error?: string }> {
+//   try {
+//     const response = await fetch(pageUrl);
+//     const html = await response.text();
+//     const dom = new JSDOM(html);
+//     const document = dom.window.document;
+
+//     // scraping car names
+//     const carNames = Array.from(
+//       document.querySelectorAll("span.car__name")
+//     ).map((node) => node?.textContent?.trim());
+
+//     // scraping car images
+//     const carImages = Array.from(
+//       document.querySelectorAll(".car__image-container img")
+//     )
+//       .map((img) => img.getAttribute("src"))
+//       .filter((src) => src !== null);
+
+//     // scraping car properties
+//     const carProperties = Array.from(
+//       document.querySelectorAll(".car__properties")
+//     ).map((node) => node?.textContent?.trim());
+
+//     const productsArray = carNames.map((name, id) => ({
+//       id: startProductId + id,
+//       name,
+//       image: carImages[id],
+//       carProperties,
+//     }));
+
+//     return {
+//       productsArray,
+//     };
+//   } catch (error) {
+//     console.error(`Error fetching data from ${pageUrl}:`, error);
+//     return { error: `Failed to fetch data from ${pageUrl}` };
+//   }
+// }
+
+// export async function GET() {
+//   const basePageUrl = "https://localrent.com/en/albania/";
+//   const totalPages = 4;
+
+//   try {
+//     let startProductId = 0;
+//     const results = await Promise.all(
+//       Array.from({ length: totalPages }, async (_, index) => {
+//         const pageUrl = `${basePageUrl}?page=${index + 1}`;
+//         const result = await scrapePage(pageUrl, startProductId);
+//         startProductId += 100; // Increment for the next page
+//         console.log(`Scraped data from ${pageUrl}:`, result);
+
+//         return result;
+//       })
+//     );
+
+//     const allProductsArray = results.flatMap(({ productsArray, error }) => {
+//       if (error) {
+//         console.error(error);
+//         return [];
+//       }
+//       return productsArray;
+//     });
+
+//     return Response.json({
+//       productsArray: allProductsArray,
+//     });
+//   } catch (error) {
+//     console.error("Error fetching data from multiple pages:", error);
+//     return Response.json({ error: "Failed to fetch data from multiple pages" });
+//   }
+// }
+
+import puppeteer from "puppeteer";
 
 export const dynamic = "force-dynamic";
 
-// Function to scrape data from a specific page
-async function scrapePage(
-  pageUrl: string,
-  startProductId: number
-): Promise<{ productsArray?: any[]; error?: string }> {
+// Function to scrape data from the main page
+async function scrapeMainPage(): Promise<{
+  productsArray?: any[];
+  error?: string;
+}> {
+  const pageUrl = "https://localrent.com/en/albania/";
+
   try {
-    const response = await fetch(pageUrl);
-    const html = await response.text();
-    const dom = new JSDOM(html);
-    const document = dom.window.document;
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(pageUrl, { waitUntil: "domcontentloaded" });
 
-    const phoneNodes = document.querySelectorAll("p.Item__name___1fPgt");
-    const phoneNames = Array.from(phoneNodes).map((node) =>
-      node?.textContent?.trim()
+    // Wait for a specific selector to ensure the content is loaded
+    await page.waitForSelector(".search__car");
+
+    // scraping car data
+    const carData = await page.evaluate(() =>
+      Array.from(document.querySelectorAll(".search__car")).map(
+        (carNode, id) => {
+          const name = carNode.querySelector(".car__name")?.textContent?.trim();
+          const image = carNode
+            .querySelector(".car__image-container img")
+            ?.getAttribute("src");
+          const propertiesText = carNode
+            .querySelector(".car__properties")
+            ?.textContent?.trim();
+          const propertiesArray = propertiesText
+            ?.split(",")
+            .map((property) => property.trim());
+          const priceTotal = carNode
+            .querySelector(".car__price-total h5")
+            ?.textContent?.trim();
+          const priceDay = carNode
+            .querySelector(".car__price-day span")
+            ?.textContent?.trim();
+
+          return {
+            id,
+            name,
+            image,
+            carProperties: propertiesArray || [],
+            priceTotal,
+            priceDay,
+          };
+        }
+      )
     );
-    const phoneImageNodes = document.querySelectorAll(
-      "img[data-cy='modernImage']"
-    );
-    const phoneImages = Array.from(phoneImageNodes).map((img) =>
-      img.getAttribute("src")
-    );
 
-    const propContainers = document.querySelectorAll(
-      ".Item__cardProps___Hxy-F"
-    );
-    const phonePropertiesArray: PhoneProperties[] = [];
+    await browser.close();
 
-    propContainers.forEach((container) => {
-      const propElements = container.querySelectorAll(
-        '[data-cy="mouchoCardProps"] [data-cy="mouchoCardPropValue"]'
-      );
-
-      const phoneProperties: PhoneProperties = {};
-      const propertyNames = [`Display`, `RAM`, `PPI`, `Battery`];
-
-      propElements.forEach((element, index) => {
-        const propertyName = propertyNames[index];
-
-        const value = element ? element.textContent?.trim() : "";
-        phoneProperties[propertyName] = value!;
-      });
-
-      phonePropertiesArray.push(phoneProperties);
-    });
-
-    const productsArray = phoneNames.map((name, id) => ({
-      id: startProductId + id,
-      name,
-      image: phoneImages[id],
-      properties: phonePropertiesArray[id],
-    }));
+    console.log("Final Products Array:", carData);
 
     return {
-      productsArray,
+      productsArray: carData || [],
     };
   } catch (error) {
     console.error(`Error fetching data from ${pageUrl}:`, error);
@@ -68,33 +146,15 @@ async function scrapePage(
 }
 
 export async function GET() {
-  const basePageUrl = "https://versus.com/en/phone";
-  const totalPages = 4;
-
   try {
-    let startProductId = 0;
-    const results = await Promise.all(
-      Array.from({ length: totalPages }, (_, index) => {
-        const pageUrl = `${basePageUrl}?page=${index + 1}`;
-        const result = scrapePage(pageUrl, startProductId);
-        startProductId += 100; // Increment for the next page
-        return result;
-      })
-    );
-
-    const allProductsArray = results.flatMap(({ productsArray, error }) => {
-      if (error) {
-        console.error(error);
-        return [];
-      }
-      return productsArray;
-    });
+    const result = await scrapeMainPage();
+    console.log("Scraped data from main page:", result);
 
     return Response.json({
-      productsArray: allProductsArray,
+      productsArray: result.productsArray || [],
     });
   } catch (error) {
-    console.error("Error fetching data from multiple pages:", error);
-    return Response.json({ error: "Failed to fetch data from multiple pages" });
+    console.error("Error fetching data from the main page:", error);
+    return Response.json({ error: "Failed to fetch data from the main page" });
   }
 }
