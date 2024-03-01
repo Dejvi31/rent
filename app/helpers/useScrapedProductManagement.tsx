@@ -28,7 +28,6 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
 
   const router = useRouter();
 
-  console.log("123");
   // useEffect for fetching scraped products data on component mount
   useEffect(() => {
     console.log("use effect");
