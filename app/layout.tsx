@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={`${inter.className} h-full flex flex-col min-h-screen`}>
         <Authprovider>
           <Header />
-          <section className="flex-1 mt-20 mb-24">{children}</section>
+          <section className="flex-1 mt-16 mb-24">{children}</section>
           <Footer />
         </Authprovider>
       </body>

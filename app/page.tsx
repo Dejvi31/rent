@@ -45,6 +45,14 @@ const HomePage = () => {
   return (
     <>
       {/* {showPopup && <StartingPopup closePopup={closePopup} />} */}
+      <CarouselSlider
+        image={["/images/bg-1.jpg", "/images/bg-2.jpg", "/images/bg-3.jpg"]}
+        text={["Watch Car 1", "Watch Car 2", "Watch Car 3"]}
+        alt={["car1", "car2", "car3"]}
+        styleText={
+          "text-lg font-bold absolute bottom-4 left-0 right-0 text-center"
+        }
+      />
       <Search
         value={search}
         onChange={handleSearchChange}
@@ -58,7 +66,6 @@ const HomePage = () => {
         <>
           {scrapedProducts.length > 0 ? (
             <>
-              <CarouselSlider />
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
