@@ -8,15 +8,19 @@ import {
 import Image from "next/image";
 
 const CarouselSlider = ({ text, image, alt, styleText, textPosition }) => {
+  let containerClass = "";
+
   switch (textPosition) {
     case "lb":
       textPosition = "left-0 bottom-0";
+      containerClass = "mx-4";
       break;
     case "rb":
       textPosition = "right-0 bottom-0";
       break;
     case "lt":
       textPosition = "left-0 top-0";
+      containerClass = "mx-4";
       break;
     case "rt":
       textPosition = "right-0 top-0";
@@ -30,6 +34,8 @@ const CarouselSlider = ({ text, image, alt, styleText, textPosition }) => {
     case "c":
       textPosition = "text-center";
       break;
+    default:
+      positionClass = "";
   }
   return (
     <Carousel>
@@ -38,10 +44,12 @@ const CarouselSlider = ({ text, image, alt, styleText, textPosition }) => {
           return (
             <CarouselItem
               key={index}
-              className="relative mt-3 mx-4 flex flex-col items-center justify-center w-full h-[450px]"
+              className={`relative my-3 flex flex-col items-center justify-center w-full h-[450px] ${containerClass}`}
             >
               <Image src={item} alt={alt[index]} fill priority={true} />
-              <p className={`${styleText} ${textPosition}`}>{text[index]}</p>
+              <section className={`${styleText} ${textPosition}`}>
+                {text[index]}
+              </section>
             </CarouselItem>
           );
         })}

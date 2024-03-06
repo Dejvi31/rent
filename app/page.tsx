@@ -7,6 +7,7 @@ import useScrapedProductManagement from "./helpers/useScrapedProductManagement";
 import Search from "./components/forms/Search";
 import Pagination from "./components/features/Pagination";
 import CarouselSlider from "./components/carousel/CarouselSlider";
+import TextCarousel from "./components/carousel/TextCarousel";
 
 const HomePage = () => {
   const {
@@ -47,10 +48,10 @@ const HomePage = () => {
       {/* {showPopup && <StartingPopup closePopup={closePopup} />} */}
       <CarouselSlider
         image={["/images/bg-1.jpg", "/images/bg-2.jpg", "/images/bg-3.jpg"]}
-        text={["Watch Car 1", "Watch Car 2", "Watch Car 3"]}
+        text={[<TextCarousel />, <TextCarousel />, <TextCarousel />]}
         alt={["car1", "car2", "car3"]}
         styleText={"text-lg font-bold absolute"}
-        textPosition={"rb"}
+        textPosition={"c"} // lt rt cb ct c lb rb
       />
       <Search
         value={search}
