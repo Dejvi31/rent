@@ -20,11 +20,7 @@ const ComparePage = () => {
           <span>Loading... ⏳</span>
         </section>
       ) : (
-        <section>
-          <section className="flex items-center justify-center">
-            <span className="text-lg font-bold">Compare Scraped Products</span>
-          </section>
-
+        <section className="mt-4">
           <ProductCompared
             selectedProductsDetails={selectedProductsDetails}
             scrapedProducts={scrapedProducts}

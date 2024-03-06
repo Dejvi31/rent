@@ -49,10 +49,10 @@ const ScrapedProductCard = ({
             </section>
             <section className="flex justify-between text-sm">
               <section>
-                <span>{priceTotal}</span>
+                <span>{priceTotal} for 3 days</span>
               </section>
               <section>
-                <h5 className="text-gray-500">{priceDay} for 14 days</h5>
+                <h5 className="text-gray-500">{priceDay} per day</h5>
               </section>
             </section>
           </section>

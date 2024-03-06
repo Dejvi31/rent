@@ -35,7 +35,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
       console.log("fetch");
       try {
         // Check if data is present in sessionStorage
-        const cachedData = sessionStorage.getItem("scrapedProducts");
+        const cachedData = sessionStorage.getItem("carProducts");
 
         if (cachedData) {
           setScrapedProducts(JSON.parse(cachedData));
@@ -44,7 +44,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
           setScrapedProducts(scrapedProductsArray);
           // Save data to sessionStorage
           sessionStorage.setItem(
-            "scrapedProducts",
+            "carProducts",
             JSON.stringify(scrapedProductsArray)
           );
         }
@@ -63,7 +63,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
 
     if (product) {
       // Save the selected product to session storage and state
-      sessionStorage.setItem("selectedScrapedProduct", JSON.stringify(product));
+      sessionStorage.setItem("selectedScrapedCar", JSON.stringify(product));
       setSelectedProduct(product);
       // Update recently visited products
       updateRecentlyVisitedProducts(product);
@@ -82,7 +82,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
         ...prev.filter((item) => item.id !== product.id),
       ];
       sessionStorage.setItem(
-        "recentlyVisitedProducts",
+        "recentlyVisitedCars",
         JSON.stringify(updatedList)
       );
       return updatedList;
@@ -91,7 +91,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
   // useEffect for loading recentlyVisitedProducts from sessionStorage on component mount
   useEffect(() => {
     const storedRecentlyVisitedProducts = sessionStorage.getItem(
-      "recentlyVisitedProducts"
+      "recentlyVisitedCars"
     );
 
     if (storedRecentlyVisitedProducts) {
@@ -126,7 +126,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
     if (selectedScrapedProducts.length >= 2) {
       // Save selected products to session storage and navigate to the compare page
       sessionStorage.setItem(
-        "selectedScrapedProducts",
+        "selectedScrapedCars",
         JSON.stringify(selectedScrapedProducts)
       );
       router.push("/compare");
@@ -147,7 +147,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
   // Custom hook for clearing the list of selected scraped products
   const handleClearScrapedList = () => {
     setSelectedScrapedProducts([]);
-    sessionStorage.removeItem("selectedScrapedProducts");
+    sessionStorage.removeItem("selectedScrapedCars");
   };
 
   // Custom hook for generating an array of random scraped products
@@ -164,7 +164,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
 
     if (product) {
       // Save the randomly selected product to session storage and state
-      sessionStorage.setItem("selectedScrapedProduct", JSON.stringify(product));
+      sessionStorage.setItem("selectedScrapedCar", JSON.stringify(product));
       setSelectedProduct(product);
       // Update recently visited products
       setRecentlyVisitedProducts((prev) => {
@@ -173,7 +173,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
           ...prev.filter((item) => item.id !== productId),
         ];
         sessionStorage.setItem(
-          "recentlyVisitedProducts",
+          "recentlyVisitedCars",
           JSON.stringify(updatedList)
         );
         return updatedList;
@@ -186,7 +186,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
 
   // Custom hook for filtering scraped products based on the search input
   const filteredScrapedProducts = scrapedProducts.filter((product) =>
-    product.name.toLowerCase().includes(search.toLowerCase())
+    product.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   // Function to get the products for the current page, considering the search query
@@ -224,7 +224,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
 
       // Save updated bookmarks to sessionStorage
       sessionStorage.setItem(
-        "bookmarkedProducts",
+        "bookmarkedCars",
         JSON.stringify(updatedBookmarks)
       );
 
@@ -233,8 +233,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
   };
   // useEffect for loading bookmarked products from sessionStorage on component mount
   useEffect(() => {
-    const storedBookmarkedProducts =
-      sessionStorage.getItem("bookmarkedProducts");
+    const storedBookmarkedProducts = sessionStorage.getItem("bookmarkedCars");
 
     if (storedBookmarkedProducts) {
       const parsedBookmarkedProducts = JSON.parse(storedBookmarkedProducts);
@@ -244,9 +243,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
 
   // useEffect for loading selected scraped product from session storage on component mount
   useEffect(() => {
-    const storedSelectedProduct = sessionStorage.getItem(
-      "selectedScrapedProduct"
-    );
+    const storedSelectedProduct = sessionStorage.getItem("selectedScrapedCar");
 
     if (storedSelectedProduct) {
       const parsedSelectedProduct = JSON.parse(storedSelectedProduct);
@@ -257,7 +254,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
   // useEffect for loading selected scraped products from session storage on component mount
   useEffect(() => {
     const storedSelectedProducts = sessionStorage.getItem(
-      "selectedScrapedProducts"
+      "selectedScrapedCars"
     );
 
     if (storedSelectedProducts) {

@@ -7,7 +7,30 @@ import {
 } from "@/components/ui/carousel";
 import Image from "next/image";
 
-const CarouselSlider = ({ text, image, alt, styleText }) => {
+const CarouselSlider = ({ text, image, alt, styleText, textPosition }) => {
+  switch (textPosition) {
+    case "lb":
+      textPosition = "left-0 bottom-0";
+      break;
+    case "rb":
+      textPosition = "right-0 bottom-0";
+      break;
+    case "lt":
+      textPosition = "left-0 top-0";
+      break;
+    case "rt":
+      textPosition = "right-0 top-0";
+      break;
+    case "ct":
+      textPosition = "text-center top-0";
+      break;
+    case "cb":
+      textPosition = "text-center bottom-0";
+      break;
+    case "c":
+      textPosition = "text-center";
+      break;
+  }
   return (
     <Carousel>
       <CarouselContent>
@@ -15,31 +38,13 @@ const CarouselSlider = ({ text, image, alt, styleText }) => {
           return (
             <CarouselItem
               key={index}
-              className="relative  flex flex-col items-center justify-center w-full h-[450px]"
+              className="relative mt-3 mx-4 flex flex-col items-center justify-center w-full h-[450px]"
             >
-              <Image src={item} alt={alt[index]} fill />
-              <p className={`${styleText}`}>{text[index]}</p>
+              <Image src={item} alt={alt[index]} fill priority={true} />
+              <p className={`${styleText} ${textPosition}`}>{text[index]}</p>
             </CarouselItem>
           );
         })}
-        {/* <CarouselItem className="relative flex flex-col items-center justify-center text-center">
-          <img src="/images/bg-1.jpg" alt="cars" className="h-96 w-11/12 " />
-          <p className="text-lg font-bold absolute bottom-4 left-0 right-0 text-center">
-            {text[0]}
-          </p>
-        </CarouselItem>
-        <CarouselItem className="relative flex flex-col items-center justify-center text-center">
-          <img src="/images/bg-2.jpg" alt="car" className="h-96 w-11/12 " />
-          <p className="text-lg font-bold absolute bottom-4 left-0 right-0 text-center">
-            {text[1]}
-          </p>
-        </CarouselItem>
-        <CarouselItem className="relative flex flex-col items-center justify-center text-center">
-          <img src="/images/bg-3.jpg" alt="one car" className="h-96 w-11/12 " />
-          <p className="text-lg font-bold absolute bottom-4 left-0 right-0 text-center">
-            {text[2]}
-          </p>
-        </CarouselItem> */}
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
