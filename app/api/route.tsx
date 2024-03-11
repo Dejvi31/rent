@@ -1,6 +1,9 @@
 import puppeteer from "puppeteer";
+import fs from "fs/promises";
 
 export const dynamic = "force-dynamic";
+
+const JSON_FILE_PATH = "carData.json";
 
 // Function to scrape data from the main page
 async function scrapeMainPage(): Promise<{
@@ -8,7 +11,7 @@ async function scrapeMainPage(): Promise<{
   error?: string;
 }> {
   const pageUrl =
-    "https://www.carjet.com/do/list/en?s=daf63f0d-4f02-4800-96ad-30709237e474&b=42a1d944-25db-4f00-aecf-2698fde782d9";
+    "https://www.carjet.com/do/list/en?s=be1705fc-cef2-4f73-8310-29e7a25812ef&b=aa136b0b-e110-47a4-8adc-222a3281e1d5";
 
   //  Base URL required for the images
   const baseUrl = "https://www.carjet.com";
@@ -66,6 +69,8 @@ async function scrapeMainPage(): Promise<{
     );
 
     await browser.close();
+    // Save the scraped data to a JSON file
+    await fs.writeFile(JSON_FILE_PATH, JSON.stringify(carData));
 
     return {
       productsArray: carData || [],
@@ -78,7 +83,20 @@ async function scrapeMainPage(): Promise<{
 
 export async function GET() {
   try {
-    const result = await scrapeMainPage();
+    const isJsonFileExists = await fs
+      .access(JSON_FILE_PATH)
+      .then(() => true)
+      .catch(() => false);
+
+    let result;
+    if (isJsonFileExists) {
+      // If the JSON file exists, read data from the file
+      const jsonData = await fs.readFile(JSON_FILE_PATH, "utf-8");
+      result = { productsArray: JSON.parse(jsonData) };
+    } else {
+      // If the JSON file doesn't exist, scrape the data
+      result = await scrapeMainPage();
+    }
 
     return Response.json({
       productsArray: result.productsArray || [],

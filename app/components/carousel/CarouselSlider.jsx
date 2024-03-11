@@ -48,7 +48,7 @@ const CarouselSlider = ({ text, image, alt, styleText, textPosition }) => {
             >
               <Image src={item} alt={alt[index]} fill priority={true} />
               <section className={`${styleText} ${textPosition}`}>
-                {text[index]}
+                {Array.isArray(text) ? text[index] : text}
               </section>
             </CarouselItem>
           );

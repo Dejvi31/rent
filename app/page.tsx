@@ -48,7 +48,7 @@ const HomePage = () => {
       {/* {showPopup && <StartingPopup closePopup={closePopup} />} */}
       <CarouselSlider
         image={["/images/bg-1.jpg", "/images/bg-2.jpg", "/images/bg-3.jpg"]}
-        text={[<TextCarousel />, <TextCarousel />, <TextCarousel />]}
+        text={<TextCarousel />}
         alt={["car1", "car2", "car3"]}
         styleText={"text-lg font-bold absolute"}
         textPosition={"c"} // lt rt cb ct c lb rb
