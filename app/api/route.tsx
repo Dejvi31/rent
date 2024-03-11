@@ -42,12 +42,12 @@ async function scrapeMainPage(): Promise<{
             }
             image = image ? baseUrl + image : null;
           }
-          const propertiesText = carNode
-            .querySelector(".cl--info-serv")
-            ?.textContent?.trim();
-          const propertiesArray = propertiesText
-            ?.split(",")
-            .map((property) => property.trim());
+          // Select specific <li> elements with desired classNames
+          const propertiesArray = Array.from(
+            carNode.querySelectorAll(
+              ".cl--info-serv li.sc-seats, .cl--info-serv li.sc-doors, .cl--info-serv li.sc-transm, li.sc-transm-auto"
+            )
+          ).map((li) => li.textContent?.trim());
 
           const priceTotal = carNode
             .querySelector(".price.pr-euros")
