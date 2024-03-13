@@ -6,6 +6,7 @@ import {
   UseScrapedProductManagementReturn,
 } from "./interfaces";
 import useSessionManagement from "./useSessionManagment";
+import useSearchManagement from "./useSearchManagement";
 
 const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
   const {
@@ -18,26 +19,20 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
     setSelectedScrapedProducts,
     setBookmarkedProducts,
   } = useSessionManagement();
-  // const [selectedScrapedProducts, setSelectedScrapedProducts] = useState<
-  //   number[]
-  // >([]);
-  // const [selectedProduct, setSelectedProduct] = useState<ScrapedProduct | null>(
-  //   null
-  // );
   const [scrapedProducts, setScrapedProducts] = useState<ScrapedProduct[]>([]);
-  const [search, setSearch] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 20;
-  const [searchSuggestions, setSearchSuggestions] = useState<ScrapedProduct[]>(
-    []
-  );
-  // const [recentlyVisitedProducts, setRecentlyVisitedProducts] = useState<
-  //   ScrapedProduct[]
-  // >([]);
-  // const [bookmarkedProducts, setBookmarkedProducts] = useState<number[]>([]);
 
   const router = useRouter();
+  const {
+    search,
+    setSearch,
+    searchSuggestions,
+    setSearchSuggestions,
+    handleSearchSuggestions,
+    handleClearSearch,
+  } = useSearchManagement(scrapedProducts);
 
   // useEffect for fetching scraped products data on component mount
   useEffect(() => {
@@ -99,20 +94,6 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
       return updatedList;
     });
   };
-  // // useEffect for loading recentlyVisitedProducts from sessionStorage on component mount
-  // useEffect(() => {
-  //   const storedRecentlyVisitedProducts = sessionStorage.getItem(
-  //     "recentlyVisitedCars"
-  //   );
-
-  //   if (storedRecentlyVisitedProducts) {
-  //     const parsedRecentlyVisitedProducts = JSON.parse(
-  //       storedRecentlyVisitedProducts
-  //     );
-  //     setRecentlyVisitedProducts(parsedRecentlyVisitedProducts);
-  //   }
-  // }, []);
-
   // Custom hook for handling selection/deselection of multiple scraped products
   const handleScrapedProductsSelect = (productId: number): void => {
     try {
@@ -210,22 +191,6 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
     return filteredAndSlicedProducts;
   };
 
-  // Function to handle search suggestions for the HeaderSearch component
-  const handleSearchSuggestions = (inputValue: string) => {
-    const suggestions = scrapedProducts
-      .filter((product) =>
-        product.name.toLowerCase().includes(inputValue.toLowerCase())
-      )
-      .slice(0, 5);
-
-    setSearchSuggestions(suggestions);
-  };
-
-  // Function to clear search suggestions
-  const handleClearSearch = () => {
-    setSearchSuggestions([]);
-  };
-
   // Custom hook for handling selection/deselection of bookmarked products
   const handleBookmarkToggle = (productId: number) => {
     setBookmarkedProducts((prev) => {
@@ -242,37 +207,6 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
       return updatedBookmarks;
     });
   };
-  // // useEffect for loading bookmarked products from sessionStorage on component mount
-  // useEffect(() => {
-  //   const storedBookmarkedProducts = sessionStorage.getItem("bookmarkedCars");
-
-  //   if (storedBookmarkedProducts) {
-  //     const parsedBookmarkedProducts = JSON.parse(storedBookmarkedProducts);
-  //     setBookmarkedProducts(parsedBookmarkedProducts);
-  //   }
-  // }, []);
-
-  // // useEffect for loading selected scraped product from session storage on component mount
-  // useEffect(() => {
-  //   const storedSelectedProduct = sessionStorage.getItem("selectedScrapedCar");
-
-  //   if (storedSelectedProduct) {
-  //     const parsedSelectedProduct = JSON.parse(storedSelectedProduct);
-  //     setSelectedProduct(parsedSelectedProduct);
-  //   }
-  // }, []);
-
-  // // useEffect for loading selected scraped products from session storage on component mount
-  // useEffect(() => {
-  //   const storedSelectedProducts = sessionStorage.getItem(
-  //     "selectedScrapedCars"
-  //   );
-
-  //   if (storedSelectedProducts) {
-  //     const parsedSelectedProducts = JSON.parse(storedSelectedProducts);
-  //     setSelectedScrapedProducts(parsedSelectedProducts);
-  //   }
-  // }, []);
 
   return {
     selectedScrapedProducts,
