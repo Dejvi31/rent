@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { PeopleSize, CarDoors, CarTransmission } from "../svg";
+import Image from "next/image";
 
 const ScrapedProductCard = ({
   scrapedProduct,
@@ -43,7 +45,15 @@ const ScrapedProductCard = ({
             <section className="flex text-gray-500 items-center">
               {properties.map((property, index) => (
                 <section key={index} className="text-xs  mb-1">
-                  <span className="pr-2">{property}</span>
+                  <span className="pr-2">
+                    <Image
+                      src={`/svg/${index + 1}.svg`}
+                      width={20}
+                      height={20}
+                      alt="kot"
+                    />
+                    {property}
+                  </span>
                 </section>
               ))}
             </section>

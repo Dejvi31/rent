@@ -1,5 +1,4 @@
 import React from "react";
-import { BatterySvg, DisplaySvg, PixelSvg, RamSvg } from "../../components/svg";
 
 const ProductComparedDetails = ({ selectedProductsDetails }) => {
   return (
@@ -15,10 +14,6 @@ const ProductComparedDetails = ({ selectedProductsDetails }) => {
               {Object.entries(product?.properties || {}).map(
                 ([property, value]) => (
                   <section key={property} className="flex items-center gap-1">
-                    {property === "Display" && <DisplaySvg />}
-                    {property === "RAM" && <RamSvg />}
-                    {property === "PPI" && <PixelSvg />}
-                    {property === "Battery" && <BatterySvg />}
                     {value}
                   </section>
                 )

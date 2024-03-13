@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import { BatterySvg, DisplaySvg, PixelSvg, RamSvg } from "../svg";
 
 const RandomSuggest = ({ randomProducts, onRandomProductSelect }) => {
   return (
@@ -29,10 +28,6 @@ const RandomSuggest = ({ randomProducts, onRandomProductSelect }) => {
                         key={property}
                         className="flex items-center gap-1 text-xs mb-1"
                       >
-                        {property === "Display" && <DisplaySvg />}
-                        {property === "RAM" && <RamSvg />}
-                        {property === "PPI" && <PixelSvg />}
-                        {property === "Battery" && <BatterySvg />}
                         {value}
                       </section>
                     )
