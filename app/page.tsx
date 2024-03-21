@@ -57,6 +57,7 @@ const HomePage = () => {
         value={search}
         onChange={handleSearchChange}
         placeholder="Search for any product..."
+        categories={["Cars", "Motors"]}
       />
       {isLoading ? (
         <section className="flex items-center justify-center">

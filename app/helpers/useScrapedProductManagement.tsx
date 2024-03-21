@@ -32,6 +32,7 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
     setSearchSuggestions,
     handleSearchSuggestions,
     handleClearSearch,
+    filteredScrapedProducts,
   } = useSearchManagement(scrapedProducts);
 
   const { generateRandomProducts, handleRandomProductSelect } =
@@ -106,11 +107,6 @@ const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {
       return updatedList;
     });
   };
-
-  // Custom hook for filtering scraped products based on the search input
-  const filteredScrapedProducts = scrapedProducts.filter((product) =>
-    product.name?.toLowerCase().includes(search.toLowerCase())
-  );
 
   const {
     currentPage,

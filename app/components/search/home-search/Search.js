@@ -1,8 +1,13 @@
 import React from "react";
 
-const Search = ({ value, onChange, placeholder }) => {
+const Search = ({ value, onChange, placeholder, categories }) => {
   return (
     <section className="flex items-center justify-center my-4">
+      <select className="mr-2">
+        {categories.map((category) => (
+          <option key={category}>{category}</option>
+        ))}
+      </select>
       <input
         type="text"
         name="search"

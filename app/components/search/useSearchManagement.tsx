@@ -21,6 +21,11 @@ const useSearchManagement = (scrapedProducts: ScrapedProduct[]) => {
     setSearchSuggestions([]);
   };
 
+  // Custom hook for filtering scraped products based on the search input
+  const filteredScrapedProducts = scrapedProducts.filter((product) =>
+    product.name?.toLowerCase().includes(search.toLowerCase())
+  );
+
   return {
     search,
     setSearch,
@@ -28,6 +33,7 @@ const useSearchManagement = (scrapedProducts: ScrapedProduct[]) => {
     setSearchSuggestions,
     handleSearchSuggestions,
     handleClearSearch,
+    filteredScrapedProducts,
   };
 };
 
