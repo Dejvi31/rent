@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { PeopleSize, CarDoors, CarTransmission } from "../svg";
 import Image from "next/image";
 
 const ScrapedProductCard = ({

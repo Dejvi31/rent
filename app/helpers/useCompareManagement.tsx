@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import useSearchManagement from "./useSearchManagement";
+import useSearchManagement from "../components/search/useSearchManagement";
 import { ScrapedProduct } from "./interfaces";
 
 const useCompareManagement = (

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import Login from "../buttons/Login";
-import HeaderSearch from "./HeaderSearch";
+import Login from "../login/login-button/Login";
+import HeaderSearch from "../search/header_search/HeaderSearch";
 import useScrapedProductManagement from "../../helpers/useScrapedProductManagement";
 import { useRouter } from "next/navigation";
 

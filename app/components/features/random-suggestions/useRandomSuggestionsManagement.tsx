@@ -1,5 +1,5 @@
-import useSessionManagement from "./useSessionManagment";
-import { ScrapedProduct } from "./interfaces";
+import useSessionManagement from "../../../helpers/useSessionManagment";
+import { ScrapedProduct } from "../../../helpers/interfaces";
 
 const useRandomSuggestionsManagement = (scrapedProducts: ScrapedProduct[]) => {
   const { setSelectedProduct, setRecentlyVisitedProducts } =

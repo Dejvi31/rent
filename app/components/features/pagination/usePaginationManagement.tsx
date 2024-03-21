@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrapedProduct } from "./interfaces";
+import { ScrapedProduct } from "../../../helpers/interfaces";
 
 const usePaginationManagement = (filteredScrapedProducts: ScrapedProduct[]) => {
   const [currentPage, setCurrentPage] = useState<number>(1);

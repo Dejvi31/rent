@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrapedProduct } from "./interfaces";
+import { ScrapedProduct } from "../../helpers/interfaces";
 
 const useSearchManagement = (scrapedProducts: ScrapedProduct[]) => {
   const [search, setSearch] = useState<string>("");

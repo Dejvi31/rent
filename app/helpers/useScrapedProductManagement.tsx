@@ -5,9 +5,9 @@ import {
   UseScrapedProductManagementReturn,
 } from "./interfaces";
 import useSessionManagement from "./useSessionManagment";
-import useSearchManagement from "./useSearchManagement";
-import usePaginationManagement from "./usePaginationManagement";
-import useRandomSuggestionsManagement from "./useRandomSuggestionsManagement";
+import useSearchManagement from "../components/search/useSearchManagement";
+import usePaginationManagement from "../components/features/pagination/usePaginationManagement";
+import useRandomSuggestionsManagement from "../components/features/random-suggestions/useRandomSuggestionsManagement";
 import useCompareManagement from "./useCompareManagement";
 
 const useScrapedProductManagement = (): UseScrapedProductManagementReturn => {

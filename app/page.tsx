@@ -2,12 +2,12 @@
 import React, { useState } from "react";
 import ScrapedProductList from "./components/scrapedProducts/ScrapedProductList";
 import ScrapedCompare from "./components/scrapedProducts/ScrapedCompare";
-import StartingPopup from "./components/popup/StartingPopup";
+import StartingPopup from "./components/features/popup/StartingPopup";
 import useScrapedProductManagement from "./helpers/useScrapedProductManagement";
-import Search from "./components/forms/Search";
-import Pagination from "./components/features/Pagination";
-import CarouselSlider from "./components/carousel/CarouselSlider";
-import TextCarousel from "./components/carousel/TextCarousel";
+import Search from "./components/search/home-search/Search";
+import Pagination from "./components/features/pagination/Pagination";
+import CarouselSlider from "./components/features/carousel/CarouselSlider";
+import TextCarousel from "./components/features/carousel/TextCarousel";
 
 const HomePage = () => {
   const {

@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import useScrapedProductManagement from "../helpers/useScrapedProductManagement";
 import ScrapedProductImage from "./ScrapedProductImage";
 import ScrapedProductDetails from "./ScrapedProductDetails";
-import { useBreadCrumbs } from "../helpers/useBreadCrumbs";
-import Breadcrumbs from "../components/features/Breadcrumbs";
-import RandomSuggest from "../components/features/RandomSuggest";
+import { useBreadCrumbs } from "../components/features/breadcrumbs/useBreadCrumbs";
+import Breadcrumbs from "../components/features/breadcrumbs/Breadcrumbs";
+import RandomSuggest from "../components/features/random-suggestions/RandomSuggest";
 import { ScrapedProduct } from "../helpers/interfaces";
 
 const page = () => {

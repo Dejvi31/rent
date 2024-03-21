@@ -32,29 +32,3 @@ export const fetchScrapedProducts = async () => {
     return [];
   }
 };
-
-// import fs from "fs/promises";
-// import { scrapeMainPage } from "./route";
-
-// const JSON_FILE_PATH = "carData.json";
-
-// export async function fetchScrapedProducts() {
-//   try {
-//     const isJsonFileExists = await fs
-//       .access(JSON_FILE_PATH)
-//       .then(() => true)
-//       .catch(() => false);
-
-//     if (isJsonFileExists) {
-//       // If the JSON file exists, read data from the file
-//       const jsonData = await fs.readFile(JSON_FILE_PATH, "utf-8");
-//       return JSON.parse(jsonData);
-//     } else {
-//       // If the JSON file doesn't exist, scrape the data from the website
-//       return await scrapeMainPage();
-//     }
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//     throw new Error("Failed to fetch data");
-//   }
-// }

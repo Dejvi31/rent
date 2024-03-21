@@ -1,7 +1,7 @@
 import React from "react";
-import useScrapedProductManagement from "../helpers/useScrapedProductManagement";
-import ScrapedProductCard from "../components/scrapedProducts/ScrapedProductCard";
-import ScrapedCompare from "../components/scrapedProducts/ScrapedCompare";
+import useScrapedProductManagement from "../../../helpers/useScrapedProductManagement";
+import ScrapedProductCard from "../../scrapedProducts/ScrapedProductCard";
+import ScrapedCompare from "../../scrapedProducts/ScrapedCompare";
 
 const Bookmark = () => {
   const {

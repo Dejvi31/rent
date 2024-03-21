@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import LoginForm from "./LoginForm";
+import LoginForm from "../components/login/login-profile/LoginForm";
 import { signOut, useSession } from "next-auth/react";
 import ProfileForm from "./ProfileForm";
-import Bookmark from "./Bookmark";
+import Bookmark from "../components/features/bookmark/Bookmark";
 import useScrapedProductManagement from "../helpers/useScrapedProductManagement";
 
 const Page = () => {
@@ -18,7 +18,7 @@ const Page = () => {
   };
 
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col mt-4">
       {isLoading ? (
         <p>Loading</p>
       ) : (
